@@ -10,6 +10,7 @@ export function initFiltering(elements, indexes) {
             const listTemplate =
                 elements[elementName].firstElementChild.cloneNode(true); // в качестве шаблона берём первый элемент из контейнера со страницами
             //elements[elementName].firstElementChild.remove();
+            listTemplate.removeAttribute('selected');
             elements[elementName].append(
                 // в каждый элемент добавляем опции
                 ...Object.values(indexes[elementName]) // формируем массив имён, значений опций
