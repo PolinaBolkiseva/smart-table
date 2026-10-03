@@ -49,6 +49,7 @@ async function render(action) {
     //7sprint//result = applySorting(result, state, action);
     //7sprint//result = applyPagination(result, state, action);
     query = applySearching(query, state, action); // result заменяем на query
+    query = applySorting(query, state, action);
     query = applyFiltering(query, state, action); // обновляем query
     query = applyPagination(query, state, action); // обновляем query    
 

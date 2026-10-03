@@ -1,8 +1,9 @@
 //7sprint//import { sortCollection, sortMap } from "../lib/sort.js";
+import { sortMap } from "../lib/sort.js";
 
 export function initSorting(columns) {
-//7sprint//
-/*    return (data, state, action) => {
+//7sprint//    return (data, state, action) => {
+    return (query, state, action) => {
         let field = null;
         let order = null;
 
@@ -31,12 +32,11 @@ export function initSorting(columns) {
             });
         }
 
-        return sortCollection(data, field, order);
+//7sprint//         return sortCollection(data, field, order);
+        const sort = (field && order !== 'none') ? `${field}:${order}` : null; // сохраним в переменную параметр сортировки в виде field:direction
+
+        return sort ? Object.assign({}, query, { sort }) : query; // по общему принципу, если есть сортировка, добавляем, если нет, то не трогаем query
+    
     };
-*/
-return (query, state, action) => { // result заменили на query
-    return state[searchField] ? Object.assign({}, query, { // проверяем, что в поле поиска было что-то введено
-        search: state[searchField] // устанавливаем в query параметр
-    }) : query; // если поле с поиском пустое, просто возвращаем query без изменений
-}
-}
+} 
+
