@@ -11,10 +11,7 @@ import { initPagination } from "./components/pagination.js";
 import { initSorting } from "./components/sorting.js";
 import { initFiltering } from "./components/filtering.js";
 import { initSearching } from "./components/searching.js";
-// @todo: подключение
 
-// Исходные данные используемые в render()
-//7sprint//const { data, ...indexes } = initData(sourceData);
 const api = initData(sourceData);
 
 /**
@@ -41,23 +38,17 @@ function collectState() {
  */
 async function render(action) {
   let state = collectState(); // состояние полей из таблицы
-  //7sprint_1//let result = [...data]; // копируем для последующего изменения
   let query = {};
-  // @todo: использование
-  //7sprint//result = applySearching(result, state, action);
-  //7sprint//result = applyFiltering(result, state, action);
-  //7sprint//result = applySorting(result, state, action);
-  //7sprint//result = applyPagination(result, state, action);
-  query = applySearching(query, state, action); // result заменяем на query
+
+  query = applySearching(query, state, action);
   query = applySorting(query, state, action);
-  query = applyFiltering(query, state, action); // обновляем query
-  query = applyPagination(query, state, action); // обновляем query
+  query = applyFiltering(query, state, action);
+  query = applyPagination(query, state, action);
 
   const { total, items } = await api.getRecords(query);
 
   updatePagination(total, query); // перерисовываем пагинатор
 
-  //7sprint//sampleTable.render(result)
   sampleTable.render(items);
 }
 
@@ -71,9 +62,7 @@ const sampleTable = initTable(
   render,
 );
 
-// @todo: инициализация
-/*const {applyPagination, updatePagination} = initPagination(...);
-const applyPagination = initPagination(*/ //7sprint//
+// инициализация
 const { applyPagination, updatePagination } = initPagination(
   sampleTable.pagination.elements, // передаём сюда элементы пагинации, найденные в шаблоне
   (el, page, isCurrent) => {
@@ -93,12 +82,6 @@ const applySorting = initSorting([
   sampleTable.header.elements.sortByTotal,
 ]);
 
-//7sprint//
-/*
-const applyFiltering = initFiltering(sampleTable.filter.elements, {    // передаём элементы фильтра
-    searchBySeller: indexes.sellers                                    // для элемента с именем searchBySeller устанавливаем массив продавцов
-});
-*/
 const { applyFiltering, updateIndexes } = initFiltering(
   sampleTable.filter.elements,
 );
@@ -116,5 +99,4 @@ async function init() {
   });
 }
 
-//7sprint//render();
 init().then(render);
