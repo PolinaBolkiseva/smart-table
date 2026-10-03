@@ -1,7 +1,8 @@
-import { sortCollection, sortMap } from "../lib/sort.js";
+//7sprint//import { sortCollection, sortMap } from "../lib/sort.js";
 
 export function initSorting(columns) {
-    return (data, state, action) => {
+//7sprint//
+/*    return (data, state, action) => {
         let field = null;
         let order = null;
 
@@ -32,4 +33,10 @@ export function initSorting(columns) {
 
         return sortCollection(data, field, order);
     };
+*/
+return (query, state, action) => { // result заменили на query
+    return state[searchField] ? Object.assign({}, query, { // проверяем, что в поле поиска было что-то введено
+        search: state[searchField] // устанавливаем в query параметр
+    }) : query; // если поле с поиском пустое, просто возвращаем query без изменений
+}
 }
